@@ -1,14 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 :root {
   font-size: 16px;
 }
 
 body {
+  height: 100vh;
+  display: grid;
+  grid-template-rows: 70px 1fr 70px;
+  background-color: #56666b;
 }
 
-button {
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffb748;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 76px 1fr;
+  row-gap: 54px;
+  justify-items: center;
+  background-color: #6ac6f9;
+  padding-top: 12px;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 6px;
+  padding: 0 6px;
+}
+
+form
+div#search {
+  display: flex;
+  align-items: center;
+  column-gap: 16px;
+  border-bottom: 2px solid black;
+  padding: 0 6px;
+}
+
+form
+div#unit {
+  display: grid;
+  grid-template: auto auto / auto auto;
+  row-gap: 6px;
+  column-gap: 12px;
+}
+
+input[type=radio] {
+  vertical-align: -1px;
+}
+
+form
+div#unit
+p {
+  grid-column: 1 / -1;
+}
+
+form div 
+input[type=text] {
+  appearance: none;
+  border: 0;
+  padding: 2px 6px;
+  background-color: transparent;
+  color: black
+}
+
+form 
+input::placeholder {
+  color: black;
+}
+
+form button {
   appearance: none;
   border: none;
-  height: 30px;
-  width: 30px;
+  height: max-content;
+  width: max-content;
   background: none;
+  cursor: pointer;
+}
+
+img#search {
+  width: 20px;
+}
+
+div#card {
+  border: 2px solid #f0341f;
+  background-color: white;
+  box-shadow: 2px 2px 12px #f0341f;
+  height: 260px;
+  width: 220px;
+  border-radius: 8px;
+}
+
+div#card
+h3 {
+  padding: 12px;
+  border-radius: 8px 8px 0 0 ;
+  background-color: #fbed63;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  column-gap: 16px;
+  background-color: #ffb748;
+}
+
+img#gitHub {
+  width: 26px;
 }

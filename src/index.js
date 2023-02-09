@@ -7,11 +7,12 @@ import currentWeather from './scripts/current-weather';
   const body = document.querySelector('body');
   const searchBtn = body.querySelector('img#search');
   const github = body.querySelector('img#gitHub');
+  const input = body.querySelector('input#city')
   github.src = gitHub;
   function checkForm(e) {
     e.stopPropagation();
     console.log(e);
-    e.preventDefault();
+    if (input.value) e.preventDefault();
   }
   searchBtn.addEventListener('click', checkForm);
   console.log(searchBtn);
