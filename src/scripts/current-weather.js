@@ -31,7 +31,7 @@ const currentWeather = (function () {
       console.log(response);
       return response.json();
     })
-    .then((json) => {
+    .finally((json) => {
         console.log(error);
         if (error) {
           error = false
@@ -45,9 +45,10 @@ const currentWeather = (function () {
       });
   }
 
+
   async function layWeatherData() {
     try {
-      const data = await fetchWeather();
+      const data = {...await fetchWeather()};
       const weather = {
         cloudPercentage: data.clouds.all,
         cityName: data.name,
@@ -63,7 +64,8 @@ const currentWeather = (function () {
         unit: units,
       };
 
-      return weather;
+
+      return data;
     } catch (err) {
       console.log(err);
       return err
