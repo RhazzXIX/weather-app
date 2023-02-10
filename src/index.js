@@ -20,7 +20,7 @@ import create from './scripts/card';
   searchBtn.addEventListener('click', checkForm);
   searchBtn.src = magnify;
 
-  currentWeather.setLocation('narra');
+  currentWeather.setLocation('taguig');
   // currentWeather.toggleUnits();
   
   currentWeather.layWeatherData()

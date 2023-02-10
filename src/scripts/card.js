@@ -47,7 +47,7 @@ const create = (function () {
 
     const unitBtn = document.createElement("button");
     unitBtn.setAttribute("id", "unit");
-    unitBtn.textContent = data.unit;
+    unitBtn.textContent = data.unit.charAt(0).toUpperCase() + data.unit.slice(1);
     card.appendChild(unitBtn)
 
     console.log(data);
