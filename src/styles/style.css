@@ -24,7 +24,7 @@ header {
 
 main {
   display: grid;
-  grid-template-rows: 76px 1fr;
+  grid-template-rows: 50px 1fr;
   row-gap: 54px;
   justify-items: center;
   background-color: skyblue;
@@ -33,40 +33,14 @@ main {
 
 form {
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  row-gap: 6px;
-  padding: 0 6px;
-}
-
-form
-div#search {
-  display: flex;
-  align-items: center;
+  align-items: flex-end;
   column-gap: 16px;
   border-bottom: 2px solid black;
-  padding: 0 6px;
+  padding: 6px  ;
 }
+
 
 form
-div#unit {
-  display: grid;
-  grid-template: auto auto / auto auto;
-  row-gap: 6px;
-  column-gap: 12px;
-}
-
-input[type=radio] {
-  vertical-align: -1px;
-}
-
-form
-div#unit
-p {
-  grid-column: 1 / -1;
-}
-
-form div 
 input[type=text] {
   appearance: none;
   border: 0;
@@ -74,6 +48,7 @@ input[type=text] {
   background-color: transparent;
   color: black
 }
+
 
 form 
 input::placeholder {
