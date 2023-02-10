@@ -26,15 +26,15 @@ const currentWeather = (function () {
 
   function fetchWeather() {
     return fetch(url, { mode: "cors" })
-    .then((response) => {
-      if (!response.ok) error = true;
-      console.log(response);
-      return response.json();
-    })
-    .finally((json) => {
+      .then((response) => {
+        if (!response.ok) error = true;
+        console.log(response);
+        return response.json();
+      })
+      .finally((json) => {
         console.log(error);
         if (error) {
-          error = false
+          error = false;
           throw new Error(json.message);
         }
         const weatherData = json;
@@ -45,14 +45,13 @@ const currentWeather = (function () {
       });
   }
 
-
   async function layWeatherData() {
     try {
-      const data = {...await fetchWeather()};
+      const data = { ...(await fetchWeather()) };
       const weather = {
         cloudPercentage: data.clouds.all,
+
         cityName: data.name,
-        temp: data.main.temp,
         feelsLike: data.main.feels_like,
         maxTemp: data.main.temp_max,
         minTemp: data.main.temp_min,
@@ -60,18 +59,31 @@ const currentWeather = (function () {
         mainWeather: data.weather[0].main,
         description: data.weather[0].description,
         iconSrc: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`,
-        windSpeed: data.wind.speed,
         unit: units,
       };
 
+      switch (units) {
+        case "imperial":
+          weather.temp = `${data.main.temp}℉`;
+          weather.feelsLike = `${data.main.feels_like}℉`;
+          weather.maxTemp = `${data.main.temp_max}℉`;
+          weather.minTemp = `${data.main.temp_min}℉`;
+          weather.windSpeed = `${data.wind.speed} mph`;
+          break;
+        default:
+          weather.temp = `${data.main.temp}℃`;
+          weather.feelsLike = `${data.main.feels_like}℃`;
+          weather.maxTemp = `${data.main.temp_max}℃`;
+          weather.minTemp = `${data.main.temp_min}℃`;
+          weather.windSpeed = `${data.wind.speed} m/s`;
+      }
 
-      return data;
+      return weather;
     } catch (err) {
       console.log(err);
-      return err
+      return err;
     }
   }
-  console.log(new Date (1675920164));
 
   return { setLocation, layWeatherData, toggleUnits };
 })();

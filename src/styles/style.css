@@ -27,7 +27,7 @@ main {
   grid-template-rows: 76px 1fr;
   row-gap: 54px;
   justify-items: center;
-  background-color: #6ac6f9;
+  background-color: skyblue;
   padding-top: 12px;
 }
 
@@ -95,8 +95,8 @@ img#search {
 
 div#card {
   border: 2px solid #f0341f;
-  background-color: white;
-  box-shadow: 2px 2px 12px #f0341f;
+  background-color: #cdf9ff;
+  box-shadow: 2px 2px 12px #4d150e;
   height: 260px;
   width: 220px;
   border-radius: 8px;
@@ -107,6 +107,16 @@ h3 {
   padding: 12px;
   border-radius: 8px 8px 0 0 ;
   background-color: #fbed63;
+  box-shadow: 0 2px 4px #b4a946;
+  margin-bottom: 6px;
+  
+}
+
+div#card
+div#weather {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 footer {
@@ -114,7 +124,7 @@ footer {
   align-items: center;
   justify-content: space-evenly;
   column-gap: 16px;
-  background-color: #ffb748;
+  background-color: #6ac6f9;
 }
 
 img#gitHub {

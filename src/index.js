@@ -2,12 +2,15 @@ import './styles/style.css';
 import gitHub from './images/GitHub-Mark-64px.png';
 import magnify from './images/magnify.svg';
 import currentWeather from './scripts/current-weather';
+import create from './scripts/card';
 
 (function() {
   const body = document.querySelector('body');
   const searchBtn = body.querySelector('img#search');
   const github = body.querySelector('img#gitHub');
-  const input = body.querySelector('input#city')
+  const input = body.querySelector('input#city');
+  const main = body.querySelector('main');
+
   github.src = gitHub;
   function checkForm(e) {
     e.stopPropagation();
@@ -15,12 +18,21 @@ import currentWeather from './scripts/current-weather';
     if (input.value) e.preventDefault();
   }
   searchBtn.addEventListener('click', checkForm);
-  console.log(searchBtn);
   searchBtn.src = magnify;
 
-  currentWeather.setLocation('taguig');
+  currentWeather.setLocation('narra');
+  // currentWeather.toggleUnits();
   
   currentWeather.layWeatherData()
-    .then(weather => console.log(weather))
+    .then(weatherData => {
+      const post = create.weatherCard(weatherData);
+      if(main.querySelector('div#card')) {
+        const currentCard = main.querySelector('div#card');
+        main.removeChild(currentCard);
+      }
+      main.appendChild(post.card);
+    })
+    .catch(err => console.log(err));
+
 }) ()
 
