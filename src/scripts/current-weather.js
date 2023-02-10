@@ -3,6 +3,7 @@ const currentWeather = (function () {
   let url;
   let units = "metric";
   let error = false;
+  let errorValue;
 
   function setUrl() {
     url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=fbb6454e4e06d89b469e57e298ab2736&units=${units}`;
@@ -31,26 +32,26 @@ const currentWeather = (function () {
         console.log(response);
         return response.json();
       })
-      .finally((json) => {
+      .then((json) => {
         console.log(error);
         if (error) {
-          error = false;
           throw new Error(json.message);
+        } else {
+          const weatherData = json;
+          return weatherData;
         }
-        const weatherData = json;
-        return weatherData;
       })
       .catch((err) => {
         console.log(err);
+        errorValue = err;
       });
   }
 
   async function layWeatherData() {
     try {
       const data = { ...(await fetchWeather()) };
-      const weather = {
+            const weather = {
         cloudPercentage: data.clouds.all,
-
         cityName: data.name,
         feelsLike: data.main.feels_like,
         maxTemp: data.main.temp_max,

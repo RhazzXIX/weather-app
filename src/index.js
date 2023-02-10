@@ -21,12 +21,19 @@ import create from "./scripts/card";
     input.value ='';
   }
 
+  function switchUnits (e) {
+    e.stopPropagation();
+    currentWeather.toggleUnits()
+    facilitateSubmission();
+  }
+
   function postCard(weatherData) {
     const post = create.weatherCard(weatherData);
     if (main.querySelector("div#card")) {
       const currentCard = main.querySelector("div#card");
       main.removeChild(currentCard);
     }
+    post.unitBtn.addEventListener('click', switchUnits);
     main.appendChild(post.card);
   }
 
