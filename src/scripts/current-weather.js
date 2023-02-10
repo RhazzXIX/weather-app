@@ -7,7 +7,6 @@ const currentWeather = (function () {
 
   function setUrl() {
     url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=fbb6454e4e06d89b469e57e298ab2736&units=${units}`;
-    console.log(url);
   }
 
   function toggleUnits() {
@@ -21,7 +20,6 @@ const currentWeather = (function () {
 
   function setLocation(locationName) {
     location = locationName;
-    console.log(location);
     setUrl();
   }
 
@@ -29,11 +27,9 @@ const currentWeather = (function () {
     return fetch(url, { mode: "cors" })
       .then((response) => {
         if (!response.ok) error = true;
-        console.log(response);
         return response.json();
       })
       .then((json) => {
-        console.log(error);
         if (error) {
           throw new Error(json.message);
         } else {
@@ -42,15 +38,17 @@ const currentWeather = (function () {
         }
       })
       .catch((err) => {
-        console.log(err);
-        errorValue = err;
+        errorValue = err.message;
       });
   }
 
   async function layWeatherData() {
     try {
       const data = { ...(await fetchWeather()) };
-            const weather = {
+      if (error) {
+        throw new Error(errorValue);
+      }
+      const weather = {
         cloudPercentage: data.clouds.all,
         cityName: data.name,
         feelsLike: data.main.feels_like,
@@ -81,8 +79,8 @@ const currentWeather = (function () {
 
       return weather;
     } catch (err) {
-      console.log(err);
-      return err;
+      error = false;
+      throw new Error(err.message);
     }
   }
 

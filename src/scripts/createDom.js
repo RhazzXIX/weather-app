@@ -50,11 +50,21 @@ const create = (function () {
     unitBtn.textContent = data.unit.charAt(0).toUpperCase() + data.unit.slice(1);
     card.appendChild(unitBtn)
 
-    console.log(data);
     return { card, unitBtn };
   }
 
-  return { weatherCard };
+  function errorSection (err) {
+    const section = document.createElement('section');
+    section.setAttribute('id', 'error');
+    const errorCard = document.createElement('div');
+    errorCard.setAttribute('id', 'error');
+    errorCard.textContent = err;
+    section.appendChild(errorCard);
+
+    return section
+  }
+
+  return { weatherCard , errorSection };
 })();
 
 export default create;

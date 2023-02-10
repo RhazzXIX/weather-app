@@ -2,7 +2,7 @@ import "./styles/style.css";
 import gitHub from "./images/GitHub-Mark-64px.png";
 import magnify from "./images/magnify.svg";
 import currentWeather from "./scripts/current-weather";
-import create from "./scripts/card";
+import create from "./scripts/createDom";
 
 (function () {
   const body = document.querySelector("body");
@@ -18,13 +18,7 @@ import create from "./scripts/card";
   searchBtn.src = magnify;
 
   function clearForm() {
-    input.value ='';
-  }
-
-  function switchUnits (e) {
-    e.stopPropagation();
-    currentWeather.toggleUnits()
-    facilitateSubmission();
+    input.value = "";
   }
 
   function postCard(weatherData) {
@@ -33,41 +27,59 @@ import create from "./scripts/card";
       const currentCard = main.querySelector("div#card");
       main.removeChild(currentCard);
     }
-    post.unitBtn.addEventListener('click', switchUnits);
+    post.unitBtn.onclick = switchUnits;
     main.appendChild(post.card);
   }
 
-  async function getWeather (city) {
-    try {
-      currentWeather.setLocation(city)
-      return  currentWeather.layWeatherData()
-    } catch (err) { 
-      console.log(err);
-      return err
-    };
+  function removeError(e) {
+    e.stopPropagation();
+    const currentError = body.querySelector("section#error");
+    body.removeChild(currentError);
   }
-  
+
+  function postError(err) {
+    const error = create.errorSection(err);
+    body.appendChild(error);
+    error.addEventListener("click", removeError);
+    body.addEventListener("keypress", removeError, {once: true} ) ;
+  }
+
+  async function getWeather(city) {
+    try {
+      currentWeather.setLocation(city);
+      return currentWeather.layWeatherData();
+    } catch (err) {
+      return err;
+    }
+  }
+
   async function facilitateSubmission() {
     try {
       const weather = await getWeather(cityInput);
-      postCard(weather); 
+      postCard(weather);
       clearForm();
     } catch (err) {
-      console.log(err);
+      postError(err);
+      clearForm();
     }
+  }
+
+  function switchUnits(e) {
+    e.stopPropagation();
+    currentWeather.toggleUnits();
+    facilitateSubmission();
   }
 
   function submitForm(e) {
     e.stopPropagation();
-    console.log(e);
-    if (input.value) { 
+    if (input.value) {
       e.preventDefault();
       cityInput = input.value;
       facilitateSubmission();
-    };
+    }
   }
 
-  cityInput = 'Switzerland';
+  cityInput = "Switzerland";
   facilitateSubmission();
 
   form.addEventListener("submit", submitForm);
